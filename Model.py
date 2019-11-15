@@ -1,5 +1,3 @@
-# Importing all the necessary libraries
-
 import keras 
 from keras.models import Sequential
 from keras.models import load_model
@@ -24,30 +22,23 @@ x_test /= 255
 y_train = np_utils.to_categorical(y_train, 10)
 y_test = np_utils.to_categorical(y_test, 10)
 
-# Convolutional Neural Nework
+# Model
 Model = Sequential()
-# First Convolutional Layer
 Model.add(Conv2D(32, (3, 3), input_shape = (28, 28, 1), activation='relu'))
-# First Pooling Layer 
 Model.add(MaxPooling2D(pool_size=(2, 2)))
-# Second Convolutional  Layer
 Model.add(Conv2D(64, (3, 3), activation='relu'))
-# Second Pooling Layer 
 Model.add(MaxPooling2D(pool_size=(2, 2)))
-# Dropuot Layer to prevent our Model from overfitting 
 Model.add(Dropout(0.2))
-# Flattening out Image after operations to pass it to the Neural Network
 Model.add(Flatten())
-# Neural Network
 Model.add(Dense(256, activation='relu'))
 Model.add(Dense(128, activation='relu'))
 Model.add(Dense(10, activation='softmax'))
 
-# Compiling our Model
+# Compiling
 Model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-# Training our Model
+# Training
 Model.fit(x_train, y_train, batch_size=128, epochs = 15)
 
-# Save the model
+# Save
 Model.save('CNN_Handwritten_Model_2c_2p_hl256_hl1dfcd28.h5')
